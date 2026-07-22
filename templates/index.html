@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdvantageAI | High Performance Tennis Mentor</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        tennis: {
+                            DEFAULT: '#A3E635', // lime-400
+                            dark: '#65A30D',   // lime-600
+                            glow: 'rgba(163, 230, 53, 0.4)'
+                        },
+                        surface: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(163, 230, 53, 0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(163, 230, 53, 0.5);
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .transition-all-300 {
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="text-slate-200 font-sans min-h-screen flex flex-col selection:bg-tennis selection:text-surface-900 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-surface-800 via-surface-900 to-black relative">
+
+    <nav class="fixed w-full z-40 glass-panel border-b-0 border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-tennis/20 flex items-center justify-center border border-tennis/50 shadow-[0_0_15px_rgba(163,230,53,0.3)]">
+                        <svg class="w-4 h-4 text-tennis" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-white">Advantage<span class="text-tennis">AI</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" id="navFeaturesBtn" class="text-slate-300 hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                        <button id="navSessionBtn" class="bg-tennis text-surface-900 hover:bg-tennis-dark hover:text-white transition-all duration-300 px-5 py-2.5 rounded-lg text-sm font-semibold shadow-[0_0_20px_rgba(163,230,53,0.2)] hover:shadow-[0_0_25px_rgba(163,230,53,0.4)] transform hover:-translate-y-0.5">
+                            Start Session
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-16 px-4 sm:px-6 lg:px-8 flex flex-col items-center relative overflow-hidden">
+        
+        <div id="welcomeScreen" class="w-full flex flex-col items-center w-full transition-opacity duration-500">
+            <div class="absolute top-20 left-1/4 w-96 h-96 bg-tennis/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none"></div>
+            <div class="absolute bottom-0 right-1/4 w-[30rem] h-[30rem] bg-blue-500/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto text-center z-10 animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-sm text-slate-300 mb-8">
+                    <span class="w-2 h-2 rounded-full bg-tennis animate-pulse-slow"></span>
+                    v2.0 Performance Engine Active
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-tight mb-6">
+                    Your 24/7 Grand Slam <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-tennis to-emerald-400">Strategist.</span>
+                </h1>
+                <p class="mt-4 text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Built for US high school and college competitive athletes. Dissect your match narratives, refine your mental framework, and unlock direct tactical solutions in real-time.
+                </p>
+            </div>
+
+            <section id="features" class="w-full max-w-6xl mx-auto mt-20 pt-10 border-t border-slate-800/50 z-10 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <h2 class="text-3xl font-bold text-white text-center mb-12">Engineered for Excellence</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-panel p-8 rounded-2xl hover:border-tennis/30 transition-all-300 group">
+                        <div class="w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center mb-6 text-tennis group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Tactical Dissection</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Input your match narrative and let the engine identify your unforced errors, structural weaknesses, and optimal winning patterns.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-2xl hover:border-emerald-400/30 transition-all-300 group">
+                        <div class="w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center mb-6 text-emerald-400 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Targeted Drills</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Receive daily, actionable exercise and drill plans uniquely structured around your physical constraints and available court time.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-2xl hover:border-sky-400/30 transition-all-300 group">
+                        <div class="w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center mb-6 text-sky-400 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Recovery Architecture</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Navigate bio-mechanical pain with mapped clinical phases, swelling control protocols, and safe return-to-court strategies.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section id="demo" class="hidden w-full max-w-[1400px] mx-auto mt-4 z-10 animate-fade-in-up">
+            <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50 flex flex-col lg:flex-row min-h-[750px]">
+                
+                <div class="w-full lg:w-[350px] border-b lg:border-b-0 lg:border-r border-slate-700/50 bg-slate-800/30 p-6 flex flex-col">
+                    
+                    <h3 class="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-tennis" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        Session Parameters
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-6">Select a quick prompt or type your match debrief below.</p>
+                    
+                    <div class="space-y-3">
+                        <button class="prompt-btn w-full text-left p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-tennis/50 hover:bg-slate-700/50 transition-all-300 group">
+                            <h4 class="text-sm font-medium text-slate-200 group-hover:text-white">Break Point Defense</h4>
+                            <p class="text-xs text-slate-500 mt-1">"I keep rushing my second serve. How do I reset mechanically?"</p>
+                        </button>
+                        <button class="prompt-btn w-full text-left p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-tennis/50 hover:bg-slate-700/50 transition-all-300 group">
+                            <h4 class="text-sm font-medium text-slate-200 group-hover:text-white">Aggressive Baseline</h4>
+                            <p class="text-xs text-slate-500 mt-1">"Opponent slices short to my backhand. Tactical adjustments?"</p>
+                        </button>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-700/50 flex-grow">
+                        <h3 class="text-md font-semibold text-white mb-4 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                            Recommended Exercise Focus
+                        </h3>
+                        <div class="relative w-full h-[220px]">
+                            <canvas id="exercisesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-700/50">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                            <span>Status: <span class="text-tennis">Online</span></span>
+                            <span>Model: GPT-OSS-20b</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:flex-1 flex flex-col bg-surface-900/60 relative">
+                    <div id="chatThreadBox" class="flex-grow p-6 overflow-y-auto custom-scrollbar flex flex-col space-y-4">
+                        <div class="flex w-full mb-4">
+                            <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-tennis" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div class="glass-panel text-slate-200 p-4 rounded-2xl rounded-tl-sm max-w-[85%] leading-relaxed text-sm shadow-sm">
+                                Welcome to AdvantageAI. I am your technical tennis mentor. Provide a match narrative or ask a tactical question to begin our session.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-900/80 border-t border-slate-800 backdrop-blur-md">
+                        <div class="relative flex items-end gap-2 w-full mx-auto">
+                            <textarea 
+                                id="chatInput" 
+                                rows="1"
+                                class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-3 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300 resize-none custom-scrollbar text-sm"
+                                placeholder="Detail your match scenario or mechanical issue..."
+                                oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, 120) + 'px'"
+                            ></textarea>
+                            <button 
+                                id="sendBtn"
+                                class="bg-tennis hover:bg-tennis-dark text-surface-900 p-3 rounded-xl transition-all-300 shadow-[0_0_15px_rgba(163,230,53,0.15)] hover:shadow-[0_0_20px_rgba(163,230,53,0.3)] flex-shrink-0 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <svg class="w-5 h-5 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            </button>
+                        </div>
+                        <div class="text-center mt-2">
+                            <span class="text-[10px] text-slate-500 uppercase tracking-wider">AdvantageAI can make mistakes. Consider verifying critical tactical changes with your primary coach.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="authModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity">
+        <div class="glass-panel w-full max-w-md p-8 rounded-2xl shadow-2xl border border-slate-700/50 relative transform transition-all">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <div class="w-8 h-8 rounded-full bg-tennis/20 flex items-center justify-center border border-tennis/50 shadow-[0_0_15px_rgba(163,230,53,0.3)]">
+                    <svg class="w-4 h-4 text-tennis" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <span class="font-bold text-xl tracking-tight text-white">Advantage<span class="text-tennis">AI</span></span>
+            </div>
+            <h2 class="text-2xl font-bold text-white text-center mb-6">Access Strategist</h2>
+            <form id="authForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Email</label>
+                    <input type="email" id="emailInput" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300" placeholder="athlete@example.com" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                    <input type="password" id="passwordInput" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300" placeholder="••••••••" required>
+                </div>
+                <div id="authError" class="text-rose-400 text-sm text-center min-h-[20px]"></div>
+                <div class="flex gap-3 pt-2">
+                    <button type="button" id="loginBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-2.5 rounded-xl transition-all-300 font-medium border border-slate-600">Log In</button>
+                    <button type="button" id="signupBtn" class="flex-1 bg-tennis hover:bg-tennis-dark text-surface-900 py-2.5 rounded-xl transition-all-300 font-medium shadow-[0_0_15px_rgba(163,230,53,0.15)] hover:shadow-[0_0_20px_rgba(163,230,53,0.3)]">Sign Up</button>
+                </div>
+            </form>
+            <div class="mt-6 pt-6 border-t border-slate-700">
+                <button type="button" id="googleLoginBtn" class="w-full bg-white hover:bg-gray-100 text-gray-900 py-2.5 rounded-xl transition-all-300 font-medium flex items-center justify-center gap-2 shadow-sm">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    Continue with Google
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-slate-800 bg-surface-900/50 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <span class="font-bold text-lg text-white">Advantage<span class="text-tennis">AI</span></span>
+            </div>
+            <p class="text-slate-500 text-sm">© 2026 US Sports Ecosystem. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Chart.js Data Visualization Initialization ---
+            let chartInstance = null;
+            const initChart = () => {
+                if(chartInstance) return; // Prevent double rendering
+                const ctx = document.getElementById('exercisesChart').getContext('2d');
+                
+                chartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Serve Mechanics', 'Baseline Footwork', 'Net Volleys', 'Core Strength'],
+                        datasets: [{
+                            data: [40, 30, 15, 15],
+                            backgroundColor: [
+                                '#A3E635', // lime-400 (tennis)
+                                '#34d399', // emerald-400
+                                '#38bdf8', // sky-400
+                                '#818cf8'  // indigo-400
+                            ],
+                            borderColor: '#1e293b',
+                            borderWidth: 3,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: { 
+                                    color: '#94a3b8', 
+                                    font: { size: 11, family: "'Inter', sans-serif" },
+                                    padding: 15,
+                                    usePointStyle: true
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+
+            // --- Supabase Authentication Logic ---
+            const supabaseUrl = '{{ supabase_url }}';
+            const supabaseAnonKey = '{{ supabase_anon_key }}';
+            let supabaseClient = null;
+            
+            const authModal = document.getElementById('authModal');
+            const navSessionBtn = document.getElementById('navSessionBtn');
+            const navFeaturesBtn = document.getElementById('navFeaturesBtn');
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const demoSection = document.getElementById('demo');
+            const emailInput = document.getElementById('emailInput');
+            const passwordInput = document.getElementById('passwordInput');
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            const googleLoginBtn = document.getElementById('googleLoginBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const authError = document.getElementById('authError');
+
+            if (supabaseUrl && supabaseAnonKey) {
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+            }
+
+            const toggleModal = (show) => {
+                if (show) authModal.classList.remove('hidden');
+                else authModal.classList.add('hidden');
+                authError.innerText = '';
+            };
+
+            const handleSessionState = (session) => {
+                if (session) {
+                    navSessionBtn.innerText = 'Sign Out';
+                    // Hide the welcome/features part when authenticated
+                    welcomeScreen.classList.add('hidden');
+                    navFeaturesBtn.classList.add('hidden');
+                    // Show dashboard and init chart
+                    demoSection.classList.remove('hidden');
+                    initChart();
+                    toggleModal(false);
+                } else {
+                    navSessionBtn.innerText = 'Start Session';
+                    // Show the welcome/features part when NOT authenticated
+                    welcomeScreen.classList.remove('hidden');
+                    navFeaturesBtn.classList.remove('hidden');
+                    // Hide dashboard
+                    demoSection.classList.add('hidden');
+                }
+            };
+
+            if (supabaseClient) {
+                supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                    handleSessionState(session);
+                });
+                
+                supabaseClient.auth.onAuthStateChange((_event, session) => {
+                    handleSessionState(session);
+                });
+            }
+
+            navSessionBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                if (navSessionBtn.innerText === 'Sign Out' && supabaseClient) {
+                    await supabaseClient.auth.signOut();
+                } else {
+                    const { data: { session } } = await supabaseClient.auth.getSession();
+                    if (!session) toggleModal(true);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', () => toggleModal(false));
+
+            loginBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                if(!supabaseClient) return;
+                authError.innerText = 'Authenticating...';
+                const { error } = await supabaseClient.auth.signInWithPassword({
+                    email: emailInput.value,
+                    password: passwordInput.value
+                });
+                if (error) authError.innerText = error.message;
+            });
+
+            signupBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                if(!supabaseClient) return;
+                authError.innerText = 'Registering...';
+                const { error } = await supabaseClient.auth.signUp({
+                    email: emailInput.value,
+                    password: passwordInput.value
+                });
+                if (error) authError.innerText = error.message;
+                else authError.innerText = 'Success! Check your email for confirmation.';
+            });
+
+            googleLoginBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                if(!supabaseClient) return;
+                const { error } = await supabaseClient.auth.signInWithOAuth({
+                    provider: 'google',
+                });
+                if (error) authError.innerText = error.message;
+            });
+
+            // --- Core AI Chatbot Logic ---
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const chatThreadBox = document.getElementById('chatThreadBox');
+            const promptBtns = document.querySelectorAll('.prompt-btn');
+            let chatHistory = [];
+            let isProcessing = false;
+
+            promptBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const promptText = btn.querySelector('p').innerText.replace(/["']/g, "");
+                    chatInput.value = promptText;
+                    chatInput.style.height = ''; 
+                    chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+                    chatInput.focus();
+                });
+            });
+
+            const sendMessage = async () => {
+                const text = chatInput.value.trim();
+                if (!text || isProcessing) return;
+
+                isProcessing = true;
+                sendBtn.disabled = true;
+
+                const userWrapper = document.createElement('div');
+                userWrapper.className = "flex w-full mb-4 justify-end";
+                const userBubble = document.createElement('div');
+                userBubble.className = "bg-tennis/10 border border-tennis/30 text-slate-200 p-4 rounded-2xl rounded-tr-sm max-w-[85%] leading-relaxed text-sm shadow-sm";
+                userBubble.innerText = text;
+                userWrapper.appendChild(userBubble);
+                chatThreadBox.appendChild(userWrapper);
+
+                chatInput.value = '';
+                chatInput.style.height = '46px'; 
+                chatThreadBox.scrollTop = chatThreadBox.scrollHeight;
+
+                const loadingWrapper = document.createElement('div');
+                loadingWrapper.className = "flex w-full mb-4";
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = "w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mr-3 flex-shrink-0 mt-1";
+                avatarDiv.innerHTML = `<svg class="w-4 h-4 text-tennis animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`;
+                const loadingBubble = document.createElement('div');
+                loadingBubble.className = "glass-panel text-slate-400 p-4 rounded-2xl rounded-tl-sm max-w-[85%] leading-relaxed text-sm flex items-center gap-3";
+                loadingBubble.innerHTML = `
+                    <svg class="animate-spin h-4 w-4 text-tennis" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Synthesizing response...
+                `;
+                loadingWrapper.appendChild(avatarDiv);
+                loadingWrapper.appendChild(loadingBubble);
+                chatThreadBox.appendChild(loadingWrapper);
+                chatThreadBox.scrollTop = chatThreadBox.scrollHeight;
+
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: text, history: chatHistory })
+                    });
+                    const data = await response.json();
+
+                    if (chatThreadBox.contains(loadingWrapper)) chatThreadBox.removeChild(loadingWrapper);
+                    if (!response.ok) throw new Error(data.error || "Chat token fault.");
+
+                    const botWrapper = document.createElement('div');
+                    botWrapper.className = "flex w-full mb-4";
+                    const botAvatar = document.createElement('div');
+                    botAvatar.className = "w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mr-3 flex-shrink-0 mt-1";
+                    botAvatar.innerHTML = `<svg class="w-4 h-4 text-tennis" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`;
+                    const botBubble = document.createElement('div');
+                    botBubble.className = "glass-panel text-slate-200 p-4 rounded-2xl rounded-tl-sm max-w-[85%] leading-relaxed text-sm shadow-sm";
+                    botBubble.innerHTML = data.response.replace(/\n/g, '<br>');
+                    
+                    botWrapper.appendChild(botAvatar);
+                    botWrapper.appendChild(botBubble);
+                    chatThreadBox.appendChild(botWrapper);
+                    
+                    chatHistory.push({ role: 'user', content: text });
+                    chatHistory.push({ role: 'assistant', content: data.response });
+                    chatThreadBox.scrollTop = chatThreadBox.scrollHeight;
+                } catch (err) {
+                    if (chatThreadBox.contains(loadingWrapper)) chatThreadBox.removeChild(loadingWrapper);
+                    const errorWrapper = document.createElement('div');
+                    errorWrapper.className = "flex w-full mb-4 justify-center";
+                    const errorBubble = document.createElement('div');
+                    errorBubble.className = "bg-rose-950/40 border border-rose-900/50 text-rose-400 p-3 rounded-xl max-w-[85%] leading-relaxed text-sm flex items-center gap-2";
+                    errorBubble.innerHTML = `
+                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <span>Chat tracking failed to sync context. ${err.message}</span>
+                    `;
+                    errorWrapper.appendChild(errorBubble);
+                    chatThreadBox.appendChild(errorWrapper);
+                    chatThreadBox.scrollTop = chatThreadBox.scrollHeight;
+                } finally {
+                    isProcessing = false;
+                    sendBtn.disabled = false;
+                    chatInput.focus();
+                }
+            };
+
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault(); 
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
