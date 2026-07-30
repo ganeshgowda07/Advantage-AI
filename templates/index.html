@@ -418,7 +418,7 @@
                             <label class="block text-sm font-medium text-slate-300 mb-1">Match Video</label>
                             <label for="videoFileInput" class="flex flex-col items-center justify-center gap-2 w-full bg-slate-800 text-slate-400 border border-dashed border-slate-700 hover:border-violet-400/60 rounded-xl py-6 px-4 cursor-pointer transition-all-300 text-center">
                                 <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                <span id="videoFileLabel" class="text-xs leading-relaxed">Click to choose a match video<br>(MP4, MOV, M4V, AVI, WEBM, MKV — up to 200MB)</span>
+                                <span id="videoFileLabel" class="text-xs leading-relaxed">Click to choose a match video<br>(MP4, MOV, M4V, AVI, WEBM, MKV — up to 350MB)</span>
                             </label>
                             <input type="file" id="videoFileInput" accept=".mp4,.mov,.m4v,.avi,.webm,.mkv,video/*" class="hidden">
                         </div>
@@ -1242,7 +1242,7 @@
                 const file = videoFileInput.files && videoFileInput.files[0];
                 videoFileLabel.innerHTML = file
                     ? `Selected: <span class="text-violet-400">${file.name}</span>`
-                    : 'Click to choose a match video<br>(MP4, MOV, M4V, AVI, WEBM, MKV — up to 200MB)';
+                    : 'Click to choose a match video<br>(MP4, MOV, M4V, AVI, WEBM, MKV — up to 350MB)';
             });
 
             const renderVideoLoading = (container) => {

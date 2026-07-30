@@ -2,9 +2,10 @@ import os
 import json
 import base64
 import tempfile
+import time
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
-from groq import Groq
+from groq import Groq, APIStatusError
 import cv2
 
 # Load local environment variables if present
@@ -13,9 +14,10 @@ load_dotenv()
 # Point to the root-level templates directory relative to the serverless api function
 app = Flask(__name__, template_folder='../templates')
 
-# Cap upload size for the video analysis endpoint (200 MB) so a stray large file
-# doesn't hang the request pipeline or exhaust server memory.
-app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024
+# Cap upload size for the video analysis endpoint (350 MB) so a stray large file
+# doesn't hang the request pipeline or exhaust server memory. This comfortably
+# covers a ~5 minute / ~300 MB match video with headroom for container overhead.
+app.config['MAX_CONTENT_LENGTH'] = 350 * 1024 * 1024
 
 # Initialize API Keys securely from the production environment
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
@@ -23,10 +25,15 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "")
 
 # --- Video Analysis Configuration ---
-# Groq's multimodal vision model. Limited to a maximum of 5 images per request,
-# so frames are sampled from the uploaded video and analyzed in small batches.
+# Groq's multimodal vision model. The account's on-demand tier caps this model at
+# 8,000 tokens/minute (org-wide), and each 800px frame alone costs ~850 prompt
+# tokens, so batches are kept to a single image per request to leave enough
+# headroom for the model's reasoning + JSON output without tripping the limit.
 VISION_MODEL = "qwen/qwen3.6-27b"
-VISION_BATCH_SIZE = 5
+VISION_BATCH_SIZE = 1
+VISION_MAX_COMPLETION_TOKENS = 2000
+VISION_MAX_RETRIES = 4
+VISION_RETRY_DEFAULT_WAIT_SEC = 12
 MAX_VIDEO_FRAMES = 15
 MAX_FRAME_WIDTH = 800
 ALLOWED_VIDEO_EXTENSIONS = {'.mp4', '.mov', '.m4v', '.avi', '.webm', '.mkv'}
@@ -430,6 +437,35 @@ def _extract_video_frames(video_path, max_frames=MAX_VIDEO_FRAMES, max_width=MAX
     return encoded_frames
 
 
+def _create_vision_completion_with_retry(client, content):
+    """Calls the Groq vision model, transparently retrying on 429/413 token-rate-limit
+    responses (the account's per-minute token budget is easy to trip on video analysis
+    since every frame is a separate request). Honors the API's Retry-After header when
+    present, otherwise backs off with an increasing default wait."""
+    last_error = None
+    for attempt in range(VISION_MAX_RETRIES):
+        try:
+            return client.chat.completions.create(
+                model=VISION_MODEL,
+                messages=[{"role": "user", "content": content}],
+                response_format={"type": "json_object"},
+                temperature=0.4,
+                max_tokens=VISION_MAX_COMPLETION_TOKENS
+            )
+        except APIStatusError as e:
+            if e.status_code not in (429, 413) or attempt == VISION_MAX_RETRIES - 1:
+                raise
+            last_error = e
+            retry_after = None
+            try:
+                retry_after = float(e.response.headers.get("retry-after"))
+            except (TypeError, ValueError, AttributeError):
+                pass
+            wait_sec = retry_after if retry_after is not None else VISION_RETRY_DEFAULT_WAIT_SEC * (attempt + 1)
+            time.sleep(wait_sec)
+    raise last_error
+
+
 def _analyze_frame_batch(client, batch, player_level, match_context):
     """Sends one batch (<= VISION_BATCH_SIZE) of frames to the Groq vision model and
     returns a list of {shot_type, score, feedback} dicts, one per frame in order."""
@@ -457,13 +493,7 @@ def _analyze_frame_batch(client, batch, player_level, match_context):
             "image_url": {"url": f"data:image/jpeg;base64,{item['base64']}"}
         })
 
-    response = client.chat.completions.create(
-        model=VISION_MODEL,
-        messages=[{"role": "user", "content": content}],
-        response_format={"type": "json_object"},
-        temperature=0.4,
-        max_completion_tokens=1200
-    )
+    response = _create_vision_completion_with_retry(client, content)
     parsed = json.loads(response.choices[0].message.content)
     shots = parsed.get("shots", [])
     return shots if isinstance(shots, list) else []
@@ -503,7 +533,12 @@ def video_analysis():
 
         all_shots = []
         for batch in _chunked(frames, VISION_BATCH_SIZE):
-            batch_results = _analyze_frame_batch(client, batch, player_level, match_context)
+            try:
+                batch_results = _analyze_frame_batch(client, batch, player_level, match_context)
+            except APIStatusError:
+                # Vision model stayed rate-limited through all retries for this batch.
+                # Skip it rather than failing shots that were already analyzed.
+                batch_results = []
             for offset, frame_meta in enumerate(batch):
                 shot_data = batch_results[offset] if offset < len(batch_results) else {}
                 score = shot_data.get("score")
@@ -512,9 +547,9 @@ def video_analysis():
                 all_shots.append({
                     "frame_index": frame_meta["frame_index"],
                     "timestamp_sec": frame_meta["timestamp_sec"],
-                    "shot_type": shot_data.get("shot_type", "Unclassified"),
+                    "shot_type": shot_data.get("shot_type", "Unclassified" if batch_results else "Unavailable"),
                     "score": score,
-                    "feedback": shot_data.get("feedback", "")
+                    "feedback": shot_data.get("feedback", "" if batch_results else "Skipped: vision service was rate-limited.")
                 })
 
         scored_shots = [s for s in all_shots if s["score"] is not None]
@@ -597,7 +632,7 @@ def video_analysis():
 def file_too_large(_e):
     """Returns a clean JSON error when an uploaded video exceeds MAX_CONTENT_LENGTH,
     instead of the default HTML error page."""
-    return jsonify({"error": "Uploaded video is too large. Please upload a file under 200 MB."}), 413
+    return jsonify({"error": "Uploaded video is too large. Please upload a file under 350 MB."}), 413
 
 
 if __name__ == '__main__':
