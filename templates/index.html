@@ -94,6 +94,9 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#features" id="navFeaturesBtn" class="text-slate-300 hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                        <button id="navProfileBtn" class="hidden text-slate-300 hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium border border-slate-700 hover:border-tennis/50">
+                            My Profile
+                        </button>
                         <button id="navSessionBtn" class="bg-tennis text-surface-900 hover:bg-tennis-dark hover:text-white transition-all duration-300 px-5 py-2.5 rounded-lg text-sm font-semibold shadow-[0_0_20px_rgba(163,230,53,0.2)] hover:shadow-[0_0_25px_rgba(163,230,53,0.4)] transform hover:-translate-y-0.5">
                             Start Session
                         </button>
@@ -125,34 +128,100 @@
 
             <section id="features" class="w-full max-w-6xl mx-auto mt-20 pt-10 border-t border-slate-800/50 z-10 animate-fade-in-up" style="animation-delay: 0.1s;">
                 <h2 class="text-3xl font-bold text-white text-center mb-12">Engineered for Excellence</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-panel p-8 rounded-2xl hover:border-tennis/30 transition-all-300 group">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <button type="button" id="featureCardDebrief" class="text-left w-full glass-panel p-8 rounded-2xl hover:border-tennis/30 transition-all-300 group cursor-pointer">
                         <div class="w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center mb-6 text-tennis group-hover:scale-110 transition-transform">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                         </div>
                         <h3 class="text-xl font-semibold text-white mb-3">Tactical Dissection</h3>
                         <p class="text-slate-400 text-sm leading-relaxed">Input your match narrative and let the engine identify your unforced errors, structural weaknesses, and optimal winning patterns.</p>
-                    </div>
-                    <div class="glass-panel p-8 rounded-2xl hover:border-emerald-400/30 transition-all-300 group">
+                    </button>
+                    <button type="button" id="featureCardDrills" class="text-left w-full glass-panel p-8 rounded-2xl hover:border-emerald-400/30 transition-all-300 group cursor-pointer">
                         <div class="w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center mb-6 text-emerald-400 group-hover:scale-110 transition-transform">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         </div>
                         <h3 class="text-xl font-semibold text-white mb-3">Targeted Drills</h3>
                         <p class="text-slate-400 text-sm leading-relaxed">Receive daily, actionable exercise and drill plans uniquely structured around your physical constraints and available court time.</p>
-                    </div>
-                    <div class="glass-panel p-8 rounded-2xl hover:border-sky-400/30 transition-all-300 group">
+                    </button>
+                    <button type="button" id="featureCardRecovery" class="text-left w-full glass-panel p-8 rounded-2xl hover:border-sky-400/30 transition-all-300 group cursor-pointer">
                         <div class="w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center mb-6 text-sky-400 group-hover:scale-110 transition-transform">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                         </div>
                         <h3 class="text-xl font-semibold text-white mb-3">Recovery Architecture</h3>
                         <p class="text-slate-400 text-sm leading-relaxed">Navigate bio-mechanical pain with mapped clinical phases, swelling control protocols, and safe return-to-court strategies.</p>
-                    </div>
+                    </button>
+                    <button type="button" id="featureCardVideo" class="text-left w-full glass-panel p-8 rounded-2xl hover:border-violet-400/30 transition-all-300 group cursor-pointer">
+                        <div class="w-12 h-12 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center mb-6 text-violet-400 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Video Shot Analysis</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Upload recorded play and get a statistical breakdown of every sampled shot, scored 1-100, with your key strengths and weaknesses.</p>
+                    </button>
                 </div>
             </section>
         </div>
 
         <section id="demo" class="hidden w-full max-w-[1400px] mx-auto mt-4 z-10 animate-fade-in-up">
-            <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50 flex flex-col lg:flex-row min-h-[750px]">
+
+            <div id="welcomeBanner" class="hidden glass-panel rounded-2xl p-6 mb-4 border border-tennis/20 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-tennis/10 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+                    <div class="flex-1">
+                        <p id="welcomeMessageText" class="text-lg md:text-xl font-semibold text-white leading-relaxed mb-3">Loading your profile insight...</p>
+                        <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+                            <div>
+                                <span class="text-slate-500">Biggest Improvement</span>
+                                <p id="welcomeImprovementText" class="text-emerald-400 font-medium">—</p>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Current Weakness</span>
+                                <p id="welcomeWeaknessText" class="text-rose-400 font-medium">—</p>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Today's Focus</span>
+                                <p id="welcomeFocusText" class="text-tennis font-medium">—</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 flex-shrink-0">
+                        <div class="text-center">
+                            <div id="welcomeReadinessScore" class="text-3xl font-extrabold text-tennis">--</div>
+                            <div class="text-[10px] uppercase tracking-wider text-slate-500">Readiness</div>
+                        </div>
+                        <button id="welcomeEditProfileBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-tennis/50 px-4 py-2 rounded-xl text-sm font-medium transition-all-300">
+                            Edit Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="profileSetupBanner" class="hidden glass-panel rounded-2xl p-6 mb-4 border border-tennis/20 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-slate-300 text-sm md:text-base">Complete your Player Profile so AdvantageAI can start tracking your progress and giving you personalized insights.</p>
+                <button id="setupProfileBtn" class="bg-tennis hover:bg-tennis-dark text-surface-900 px-5 py-2.5 rounded-lg text-sm font-semibold shadow-[0_0_20px_rgba(163,230,53,0.2)] flex-shrink-0">
+                    Set Up Profile
+                </button>
+            </div>
+
+            <div id="featureTabBar" class="flex items-center gap-2 mb-4 overflow-x-auto custom-scrollbar pb-1">
+                <button type="button" data-tab="debrief" class="feature-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all-300 flex-shrink-0 bg-tennis/10 border-tennis/50 text-white">
+                    <svg class="w-4 h-4 text-tennis" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Match Debrief
+                </button>
+                <button type="button" data-tab="drills" class="feature-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all-300 flex-shrink-0 bg-slate-800/50 border-slate-700 text-slate-300 hover:text-white hover:border-emerald-400/50">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Drill Planner
+                </button>
+                <button type="button" data-tab="recovery" class="feature-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all-300 flex-shrink-0 bg-slate-800/50 border-slate-700 text-slate-300 hover:text-white hover:border-sky-400/50">
+                    <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    Recovery Lab
+                </button>
+                <button type="button" data-tab="video" class="feature-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all-300 flex-shrink-0 bg-slate-800/50 border-slate-700 text-slate-300 hover:text-white hover:border-violet-400/50">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    Video Analysis
+                </button>
+            </div>
+
+            <div id="debriefPanel" class="glass-panel rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50 flex flex-col lg:flex-row min-h-[750px]">
                 
                 <div class="w-full lg:w-[350px] border-b lg:border-b-0 lg:border-r border-slate-700/50 bg-slate-800/30 p-6 flex flex-col">
                     
@@ -225,6 +294,168 @@
                     </div>
                 </div>
             </div>
+
+            <div id="drillsPanel" class="hidden glass-panel rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50 flex flex-col lg:flex-row min-h-[750px]">
+                <div class="w-full lg:w-[350px] border-b lg:border-b-0 lg:border-r border-slate-700/50 bg-slate-800/30 p-6 flex flex-col">
+                    <h3 class="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Drill Planner
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-6">Built around your saved profile — weaknesses, favorite serve, and recent injuries all feed the plan below.</p>
+
+                    <div class="space-y-4 flex-grow">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Focus Area</label>
+                            <select id="drillFocusArea" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all-300">
+                                <option value="Serves">Serves</option>
+                                <option value="Forehand">Forehand</option>
+                                <option value="Backhand">Backhand</option>
+                                <option value="Net Play / Volleys">Net Play / Volleys</option>
+                                <option value="Return of Serve">Return of Serve</option>
+                                <option value="Footwork">Footwork</option>
+                                <option value="Fitness / Conditioning">Fitness / Conditioning</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Time Available</label>
+                            <input type="text" id="drillTimeAvailable" value="45 mins a day" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all-300" placeholder="30 mins a day">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Gym Access</label>
+                            <select id="drillGymAccess" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all-300">
+                                <option value="Full gym access">Full gym access</option>
+                                <option value="Limited equipment (bands, dumbbells)">Limited equipment (bands, dumbbells)</option>
+                                <option value="Bodyweight only">Bodyweight only</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Player Level</label>
+                            <input type="text" id="drillPlayerLevel" value="High School Varsity / NTRP 3.5" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all-300">
+                        </div>
+                        <div id="drillProfileHint" class="hidden text-xs text-emerald-400/90 bg-emerald-400/5 border border-emerald-400/20 rounded-lg px-3 py-2 leading-relaxed"></div>
+                    </div>
+
+                    <button type="button" id="generateDrillPlanBtn" class="mt-6 w-full bg-emerald-400 hover:bg-emerald-500 text-surface-900 py-2.5 rounded-xl transition-all-300 font-semibold shadow-[0_0_15px_rgba(52,211,153,0.15)] hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Generate Drill Plan
+                    </button>
+
+                    <div class="mt-4 pt-4 border-t border-slate-700/50">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                            <span>Status: <span class="text-tennis">Online</span></span>
+                            <span>Model: GPT-OSS-20b</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:flex-1 flex flex-col bg-surface-900/60 relative">
+                    <div id="drillResultsBox" class="flex-grow p-6 overflow-y-auto custom-scrollbar">
+                        <div class="h-full flex flex-col items-center justify-center text-center text-slate-500 px-8">
+                            <svg class="w-10 h-10 mb-4 text-emerald-400/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <p class="text-sm max-w-sm leading-relaxed">Set your focus area, available time, and equipment, then generate a custom drill plan built around your player profile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="recoveryPanel" class="hidden glass-panel rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50 flex flex-col lg:flex-row min-h-[750px]">
+                <div class="w-full lg:w-[350px] border-b lg:border-b-0 lg:border-r border-slate-700/50 bg-slate-800/30 p-6 flex flex-col">
+                    <h3 class="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        Recovery Lab
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-6">Describe what's bothering you and get a clinical, day-by-day return-to-court plan.</p>
+
+                    <div class="space-y-4 flex-grow">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Injury / Pain Area</label>
+                            <input type="text" id="recoveryInjury" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all-300" placeholder="Lateral elbow soreness (tennis elbow)">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Symptoms & Context</label>
+                            <textarea id="recoveryContext" rows="4" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all-300 resize-none custom-scrollbar" placeholder="Started after a heavy topspin forehand session, sharp pain on impact, mild swelling..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Player Level</label>
+                            <input type="text" id="recoveryPlayerLevel" value="High School Varsity / NTRP 3.5" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all-300">
+                        </div>
+                    </div>
+
+                    <div id="recoveryError" class="text-rose-400 text-sm min-h-[20px] mt-2"></div>
+                    <button type="button" id="generateRecoveryPlanBtn" class="mt-2 w-full bg-sky-400 hover:bg-sky-500 text-surface-900 py-2.5 rounded-xl transition-all-300 font-semibold shadow-[0_0_15px_rgba(56,189,248,0.15)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        Generate Recovery Plan
+                    </button>
+
+                    <div class="mt-4 pt-4 border-t border-slate-700/50">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                            <span>Status: <span class="text-tennis">Online</span></span>
+                            <span>Model: GPT-OSS-20b</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:flex-1 flex flex-col bg-surface-900/60 relative">
+                    <div id="recoveryResultsBox" class="flex-grow p-6 overflow-y-auto custom-scrollbar">
+                        <div class="h-full flex flex-col items-center justify-center text-center text-slate-500 px-8">
+                            <svg class="w-10 h-10 mb-4 text-sky-400/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            <p class="text-sm max-w-sm leading-relaxed">Describe your injury or pain and get a structured, phase-by-phase recovery timeline.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="videoPanel" class="hidden glass-panel rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50 flex flex-col lg:flex-row min-h-[750px]">
+                <div class="w-full lg:w-[350px] border-b lg:border-b-0 lg:border-r border-slate-700/50 bg-slate-800/30 p-6 flex flex-col">
+                    <h3 class="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        Video Shot Analysis
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-6">Upload recorded play. Frames are sampled across the match and every sampled shot is scored 1-100 for technical execution.</p>
+
+                    <div class="space-y-4 flex-grow">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Match Video</label>
+                            <label for="videoFileInput" class="flex flex-col items-center justify-center gap-2 w-full bg-slate-800 text-slate-400 border border-dashed border-slate-700 hover:border-violet-400/60 rounded-xl py-6 px-4 cursor-pointer transition-all-300 text-center">
+                                <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <span id="videoFileLabel" class="text-xs leading-relaxed">Click to choose a match video<br>(MP4, MOV, M4V, AVI, WEBM, MKV — up to 200MB)</span>
+                            </label>
+                            <input type="file" id="videoFileInput" accept=".mp4,.mov,.m4v,.avi,.webm,.mkv,video/*" class="hidden">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Player Level</label>
+                            <input type="text" id="videoPlayerLevel" value="High School Varsity / NTRP 3.5" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-400 transition-all-300">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Match Context (optional)</label>
+                            <textarea id="videoMatchContext" rows="3" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-400 transition-all-300 resize-none custom-scrollbar" placeholder="e.g. Practice set against a baseliner, focused on serve placement..."></textarea>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">Shots are sampled and scored from frames spread across the video by an AI vision model — treat scores as directional coaching feedback, not frame-perfect biomechanical measurement.</p>
+                    </div>
+
+                    <div id="videoError" class="text-rose-400 text-sm min-h-[20px] mt-2"></div>
+                    <button type="button" id="generateVideoAnalysisBtn" class="mt-2 w-full bg-violet-400 hover:bg-violet-500 text-surface-900 py-2.5 rounded-xl transition-all-300 font-semibold shadow-[0_0_15px_rgba(167,139,250,0.15)] hover:shadow-[0_0_20px_rgba(167,139,250,0.3)] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        Analyze Match Video
+                    </button>
+
+                    <div class="mt-4 pt-4 border-t border-slate-700/50">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                            <span>Status: <span class="text-tennis">Online</span></span>
+                            <span>Model: Qwen 3.6 27B Vision</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:flex-1 flex flex-col bg-surface-900/60 relative">
+                    <div id="videoResultsBox" class="flex-grow p-6 overflow-y-auto custom-scrollbar">
+                        <div class="h-full flex flex-col items-center justify-center text-center text-slate-500 px-8">
+                            <svg class="w-10 h-10 mb-4 text-violet-400/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            <p class="text-sm max-w-sm leading-relaxed">Upload a recorded match or practice video to get a shot-by-shot scoring breakdown with your key strengths and weaknesses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -261,6 +492,75 @@
                     Continue with Google
                 </button>
             </div>
+        </div>
+    </div>
+
+    <div id="profileModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity p-4">
+        <div class="glass-panel w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar p-8 rounded-2xl shadow-2xl border border-slate-700/50 relative transform transition-all">
+            <button id="closeProfileModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 class="text-2xl font-bold text-white mb-6">Player Profile</h2>
+
+            <form id="profileForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Full Name</label>
+                        <input type="text" id="profileFullName" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300" placeholder="Ganesh Kumar">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Height</label>
+                        <input type="text" id="profileHeight" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300" placeholder="5'11&quot;">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Play Style</label>
+                        <input type="text" id="profilePlayStyle" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300" placeholder="Aggressive Baseliner">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Favorite Serve</label>
+                        <input type="text" id="profileFavoriteServe" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300" placeholder="Kick serve out wide">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Weaknesses</label>
+                    <textarea id="profileWeaknesses" rows="2" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300 resize-none custom-scrollbar" placeholder="Second serve under pressure, backhand slice depth..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Recent Injuries</label>
+                    <textarea id="profileInjuries" rows="2" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300 resize-none custom-scrollbar" placeholder="Mild left shoulder soreness, cleared for full play..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Coach Notes</label>
+                    <textarea id="profileCoachNotes" rows="2" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300 resize-none custom-scrollbar" placeholder="Focus on footwork before match points..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Tournament Results</label>
+                    <textarea id="profileTournamentResults" rows="2" class="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl py-2.5 px-4 focus:outline-none focus:border-tennis focus:ring-1 focus:ring-tennis transition-all-300 resize-none custom-scrollbar" placeholder="Regional Semifinalist, Spring 2026 Invitational..."></textarea>
+                </div>
+
+                <div class="pt-4 border-t border-slate-700/50">
+                    <h3 class="text-md font-semibold text-white mb-3">Recent Matches</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-3">
+                        <input type="date" id="matchDate" class="col-span-2 md:col-span-1 bg-slate-800 text-slate-100 border border-slate-700 rounded-lg py-2 px-2 text-xs focus:outline-none focus:border-tennis">
+                        <input type="text" id="matchOpponent" placeholder="Opponent" class="col-span-2 md:col-span-1 bg-slate-800 text-slate-100 border border-slate-700 rounded-lg py-2 px-2 text-xs focus:outline-none focus:border-tennis">
+                        <select id="matchResult" class="bg-slate-800 text-slate-100 border border-slate-700 rounded-lg py-2 px-2 text-xs focus:outline-none focus:border-tennis">
+                            <option value="Win">Win</option>
+                            <option value="Loss">Loss</option>
+                        </select>
+                        <input type="text" id="matchScore" placeholder="Score (6-4, 6-2)" class="bg-slate-800 text-slate-100 border border-slate-700 rounded-lg py-2 px-2 text-xs focus:outline-none focus:border-tennis">
+                        <button type="button" id="addMatchBtn" class="bg-tennis hover:bg-tennis-dark text-surface-900 rounded-lg text-xs font-semibold py-2 transition-all-300">Add Match</button>
+                    </div>
+                    <input type="text" id="matchNotes" placeholder="Quick notes on this match..." class="w-full mb-3 bg-slate-800 text-slate-100 border border-slate-700 rounded-lg py-2 px-3 text-xs focus:outline-none focus:border-tennis">
+                    <div id="matchesList" class="space-y-2 max-h-[220px] overflow-y-auto custom-scrollbar pr-1">
+                        <p id="matchesEmptyState" class="text-slate-500 text-xs">No matches logged yet. Add your last 20 matches to unlock accurate trend insights.</p>
+                    </div>
+                </div>
+
+                <div id="profileError" class="text-rose-400 text-sm text-center min-h-[20px]"></div>
+                <div class="flex gap-3 pt-2">
+                    <button type="button" id="saveProfileBtn" class="flex-1 bg-tennis hover:bg-tennis-dark text-surface-900 py-2.5 rounded-xl transition-all-300 font-medium shadow-[0_0_15px_rgba(163,230,53,0.15)] hover:shadow-[0_0_20px_rgba(163,230,53,0.3)]">Save Profile</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -336,6 +636,103 @@
             const closeModalBtn = document.getElementById('closeModalBtn');
             const authError = document.getElementById('authError');
 
+            // --- Player Profile DOM References ---
+            const navProfileBtn = document.getElementById('navProfileBtn');
+            const welcomeBanner = document.getElementById('welcomeBanner');
+            const welcomeMessageText = document.getElementById('welcomeMessageText');
+            const welcomeImprovementText = document.getElementById('welcomeImprovementText');
+            const welcomeWeaknessText = document.getElementById('welcomeWeaknessText');
+            const welcomeFocusText = document.getElementById('welcomeFocusText');
+            const welcomeReadinessScore = document.getElementById('welcomeReadinessScore');
+            const welcomeEditProfileBtn = document.getElementById('welcomeEditProfileBtn');
+            const profileSetupBanner = document.getElementById('profileSetupBanner');
+            const setupProfileBtn = document.getElementById('setupProfileBtn');
+            const profileModal = document.getElementById('profileModal');
+            const closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+            const profileForm = document.getElementById('profileForm');
+            const profileFullName = document.getElementById('profileFullName');
+            const profileHeight = document.getElementById('profileHeight');
+            const profilePlayStyle = document.getElementById('profilePlayStyle');
+            const profileFavoriteServe = document.getElementById('profileFavoriteServe');
+            const profileWeaknesses = document.getElementById('profileWeaknesses');
+            const profileInjuries = document.getElementById('profileInjuries');
+            const profileCoachNotes = document.getElementById('profileCoachNotes');
+            const profileTournamentResults = document.getElementById('profileTournamentResults');
+            const matchDate = document.getElementById('matchDate');
+            const matchOpponent = document.getElementById('matchOpponent');
+            const matchResult = document.getElementById('matchResult');
+            const matchScore = document.getElementById('matchScore');
+            const matchNotes = document.getElementById('matchNotes');
+            const addMatchBtn = document.getElementById('addMatchBtn');
+            const matchesList = document.getElementById('matchesList');
+            const matchesEmptyState = document.getElementById('matchesEmptyState');
+            const saveProfileBtn = document.getElementById('saveProfileBtn');
+            const profileError = document.getElementById('profileError');
+
+            let currentUserId = null;
+            let currentProfile = null;
+            let currentMatches = [];
+
+            // --- Feature Tab Navigation DOM References ---
+            const featureTabBtns = document.querySelectorAll('.feature-tab-btn');
+            const debriefPanel = document.getElementById('debriefPanel');
+            const drillsPanel = document.getElementById('drillsPanel');
+            const recoveryPanel = document.getElementById('recoveryPanel');
+            const videoPanel = document.getElementById('videoPanel');
+            const featureCardDebrief = document.getElementById('featureCardDebrief');
+            const featureCardDrills = document.getElementById('featureCardDrills');
+            const featureCardRecovery = document.getElementById('featureCardRecovery');
+            const featureCardVideo = document.getElementById('featureCardVideo');
+            let pendingFeatureTab = null;
+
+            const featureTabConfig = {
+                debrief: { panel: debriefPanel, activeBorder: 'border-tennis/50', activeBg: 'bg-tennis/10' },
+                drills: { panel: drillsPanel, activeBorder: 'border-emerald-400/50', activeBg: 'bg-emerald-400/10' },
+                recovery: { panel: recoveryPanel, activeBorder: 'border-sky-400/50', activeBg: 'bg-sky-400/10' },
+                video: { panel: videoPanel, activeBorder: 'border-violet-400/50', activeBg: 'bg-violet-400/10' }
+            };
+
+            const switchFeatureTab = (tabName) => {
+                if (!featureTabConfig[tabName]) return;
+                Object.keys(featureTabConfig).forEach((key) => {
+                    featureTabConfig[key].panel.classList.toggle('hidden', key !== tabName);
+                });
+                featureTabBtns.forEach((btn) => {
+                    const isActive = btn.getAttribute('data-tab') === tabName;
+                    const cfg = featureTabConfig[btn.getAttribute('data-tab')];
+                    btn.classList.toggle(cfg.activeBg, isActive);
+                    btn.classList.toggle(cfg.activeBorder, isActive);
+                    btn.classList.toggle('bg-slate-800/50', !isActive);
+                    btn.classList.toggle('border-slate-700', !isActive);
+                    btn.classList.toggle('text-white', isActive);
+                    btn.classList.toggle('text-slate-300', !isActive);
+                });
+                if (tabName === 'drills') initDrillPlannerDefaults();
+                if (tabName === 'recovery') initRecoveryDefaults();
+                if (tabName === 'video') initVideoAnalysisDefaults();
+            };
+
+            featureTabBtns.forEach((btn) => {
+                btn.addEventListener('click', () => switchFeatureTab(btn.getAttribute('data-tab')));
+            });
+
+            const routeToFeature = async (tabName) => {
+                if (!supabaseClient) { switchFeatureTab(tabName); return; }
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session) {
+                    switchFeatureTab(tabName);
+                    document.getElementById('demo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    pendingFeatureTab = tabName;
+                    toggleModal(true);
+                }
+            };
+
+            featureCardDebrief.addEventListener('click', () => routeToFeature('debrief'));
+            featureCardDrills.addEventListener('click', () => routeToFeature('drills'));
+            featureCardRecovery.addEventListener('click', () => routeToFeature('recovery'));
+            featureCardVideo.addEventListener('click', () => routeToFeature('video'));
+
             if (supabaseUrl && supabaseAnonKey) {
                 supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
             }
@@ -356,6 +753,15 @@
                     demoSection.classList.remove('hidden');
                     initChart();
                     toggleModal(false);
+                    // Reveal profile controls and load the player's stored profile
+                    navProfileBtn.classList.remove('hidden');
+                    currentUserId = session.user.id;
+                    loadUserProfile();
+                    // If the user clicked a landing feature card before signing in, jump straight to it now
+                    if (pendingFeatureTab) {
+                        switchFeatureTab(pendingFeatureTab);
+                        pendingFeatureTab = null;
+                    }
                 } else {
                     navSessionBtn.innerText = 'Start Session';
                     // Show the welcome/features part when NOT authenticated
@@ -363,6 +769,13 @@
                     navFeaturesBtn.classList.remove('hidden');
                     // Hide dashboard
                     demoSection.classList.add('hidden');
+                    // Reset profile state on sign-out
+                    navProfileBtn.classList.add('hidden');
+                    currentUserId = null;
+                    currentProfile = null;
+                    currentMatches = [];
+                    welcomeBanner.classList.add('hidden');
+                    profileSetupBanner.classList.add('hidden');
                 }
             };
 
@@ -419,6 +832,527 @@
                 });
                 if (error) authError.innerText = error.message;
             });
+
+            // --- Player Profile Logic ---
+            const renderMatchesList = () => {
+                matchesList.innerHTML = '';
+                if (currentMatches.length === 0) {
+                    matchesList.appendChild(matchesEmptyState);
+                    return;
+                }
+                currentMatches.forEach((m, idx) => {
+                    const row = document.createElement('div');
+                    row.className = "flex items-center justify-between gap-2 bg-slate-800/60 border border-slate-700 rounded-lg px-3 py-2 text-xs";
+                    const resultColor = m.result === 'Win' ? 'text-emerald-400' : 'text-rose-400';
+                    row.innerHTML = `
+                        <div class="flex-1 min-w-0">
+                            <span class="text-slate-300">${m.date || 'Unknown date'}</span>
+                            <span class="text-slate-500 mx-1">vs</span>
+                            <span class="text-slate-200">${m.opponent || 'Unknown'}</span>
+                            <span class="${resultColor} font-medium ml-2">${m.result || ''}</span>
+                            <span class="text-slate-500 ml-2">${m.score || ''}</span>
+                            ${m.notes ? `<div class="text-slate-500 mt-0.5 truncate">${m.notes}</div>` : ''}
+                        </div>
+                        <button type="button" data-idx="${idx}" class="removeMatchBtn text-slate-500 hover:text-rose-400 flex-shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    `;
+                    matchesList.appendChild(row);
+                });
+                matchesList.querySelectorAll('.removeMatchBtn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                        currentMatches.splice(idx, 1);
+                        renderMatchesList();
+                    });
+                });
+            };
+
+            const populateProfileForm = (profile) => {
+                profileFullName.value = profile?.full_name || '';
+                profileHeight.value = profile?.height || '';
+                profilePlayStyle.value = profile?.play_style || '';
+                profileFavoriteServe.value = profile?.favorite_serve || '';
+                profileWeaknesses.value = profile?.weaknesses || '';
+                profileInjuries.value = profile?.recent_injuries || '';
+                profileCoachNotes.value = profile?.coach_notes || '';
+                profileTournamentResults.value = profile?.tournament_results || '';
+                currentMatches = Array.isArray(profile?.last_20_matches) ? profile.last_20_matches.slice(0, 20) : [];
+                renderMatchesList();
+            };
+
+            const openProfileModal = () => {
+                profileError.innerText = '';
+                populateProfileForm(currentProfile || {});
+                profileModal.classList.remove('hidden');
+            };
+
+            const closeProfileModal = () => {
+                profileModal.classList.add('hidden');
+            };
+
+            const loadUserProfile = async () => {
+                if (!supabaseClient || !currentUserId) return;
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('player_profiles')
+                        .select('*')
+                        .eq('user_id', currentUserId)
+                        .maybeSingle();
+
+                    if (error) throw error;
+
+                    if (data) {
+                        currentProfile = data;
+                        currentMatches = Array.isArray(data.last_20_matches) ? data.last_20_matches.slice(0, 20) : [];
+                        profileSetupBanner.classList.add('hidden');
+                        await refreshInsight();
+                    } else {
+                        currentProfile = null;
+                        currentMatches = [];
+                        welcomeBanner.classList.add('hidden');
+                        profileSetupBanner.classList.remove('hidden');
+                    }
+                } catch (err) {
+                    console.error('Unable to load player profile:', err.message);
+                }
+            };
+
+            const refreshInsight = async () => {
+                if (!currentProfile) return;
+                welcomeBanner.classList.remove('hidden');
+                welcomeMessageText.innerText = 'Analyzing your recent performance...';
+                try {
+                    const response = await fetch('/api/profile-insight', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            full_name: currentProfile.full_name,
+                            height: currentProfile.height,
+                            play_style: currentProfile.play_style,
+                            favorite_serve: currentProfile.favorite_serve,
+                            weaknesses: currentProfile.weaknesses,
+                            recent_injuries: currentProfile.recent_injuries,
+                            coach_notes: currentProfile.coach_notes,
+                            tournament_results: currentProfile.tournament_results,
+                            last_20_matches: currentMatches
+                        })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || 'Insight generation fault.');
+
+                    welcomeMessageText.innerText = data.welcome_message || `Welcome back, ${currentProfile.full_name || 'Athlete'}.`;
+                    welcomeImprovementText.innerText = data.biggest_improvement || '—';
+                    welcomeWeaknessText.innerText = data.current_weakness || '—';
+                    welcomeFocusText.innerText = data.todays_focus || '—';
+                    welcomeReadinessScore.innerText = (data.readiness_score !== undefined) ? data.readiness_score : '--';
+                } catch (err) {
+                    welcomeMessageText.innerText = `Welcome back${currentProfile.full_name ? ', ' + currentProfile.full_name : ''}. Insight generation is temporarily unavailable.`;
+                    console.error('Profile insight error:', err.message);
+                }
+            };
+
+            const saveProfile = async () => {
+                if (!supabaseClient || !currentUserId) return;
+                profileError.innerText = 'Saving profile...';
+                saveProfileBtn.disabled = true;
+
+                const payload = {
+                    user_id: currentUserId,
+                    full_name: profileFullName.value.trim(),
+                    height: profileHeight.value.trim(),
+                    play_style: profilePlayStyle.value.trim(),
+                    favorite_serve: profileFavoriteServe.value.trim(),
+                    weaknesses: profileWeaknesses.value.trim(),
+                    recent_injuries: profileInjuries.value.trim(),
+                    coach_notes: profileCoachNotes.value.trim(),
+                    tournament_results: profileTournamentResults.value.trim(),
+                    last_20_matches: currentMatches,
+                    updated_at: new Date().toISOString()
+                };
+
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('player_profiles')
+                        .upsert(payload, { onConflict: 'user_id' })
+                        .select()
+                        .single();
+
+                    if (error) throw error;
+
+                    currentProfile = data;
+                    profileError.innerText = '';
+                    closeProfileModal();
+                    profileSetupBanner.classList.add('hidden');
+                    await refreshInsight();
+                } catch (err) {
+                    profileError.innerText = err.message || 'Unable to save profile.';
+                } finally {
+                    saveProfileBtn.disabled = false;
+                }
+            };
+
+            navProfileBtn.addEventListener('click', openProfileModal);
+            welcomeEditProfileBtn.addEventListener('click', openProfileModal);
+            setupProfileBtn.addEventListener('click', openProfileModal);
+            closeProfileModalBtn.addEventListener('click', closeProfileModal);
+            saveProfileBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                saveProfile();
+            });
+
+            addMatchBtn.addEventListener('click', () => {
+                if (!matchOpponent.value.trim()) {
+                    profileError.innerText = 'Please enter an opponent name before adding a match.';
+                    return;
+                }
+                profileError.innerText = '';
+                currentMatches.unshift({
+                    date: matchDate.value || new Date().toISOString().split('T')[0],
+                    opponent: matchOpponent.value.trim(),
+                    result: matchResult.value,
+                    score: matchScore.value.trim(),
+                    notes: matchNotes.value.trim()
+                });
+                currentMatches = currentMatches.slice(0, 20);
+                matchDate.value = '';
+                matchOpponent.value = '';
+                matchScore.value = '';
+                matchNotes.value = '';
+                renderMatchesList();
+            });
+
+            // --- Drill Planner Logic ---
+            const drillFocusArea = document.getElementById('drillFocusArea');
+            const drillTimeAvailable = document.getElementById('drillTimeAvailable');
+            const drillGymAccess = document.getElementById('drillGymAccess');
+            const drillPlayerLevel = document.getElementById('drillPlayerLevel');
+            const drillProfileHint = document.getElementById('drillProfileHint');
+            const generateDrillPlanBtn = document.getElementById('generateDrillPlanBtn');
+            const drillResultsBox = document.getElementById('drillResultsBox');
+            let drillPlannerInitialized = false;
+
+            const initDrillPlannerDefaults = () => {
+                if (drillPlannerInitialized) return;
+                drillPlannerInitialized = true;
+                if (currentProfile && currentProfile.play_style) {
+                    drillPlayerLevel.value = currentProfile.play_style;
+                }
+                if (currentProfile && (currentProfile.weaknesses || currentProfile.recent_injuries)) {
+                    const parts = [];
+                    if (currentProfile.weaknesses) parts.push(`weaknesses (${currentProfile.weaknesses})`);
+                    if (currentProfile.recent_injuries) parts.push(`recent injuries (${currentProfile.recent_injuries})`);
+                    drillProfileHint.innerText = `This plan will factor in your saved ${parts.join(' and ')}.`;
+                    drillProfileHint.classList.remove('hidden');
+                } else {
+                    drillProfileHint.classList.add('hidden');
+                }
+            };
+
+            const renderDrillLoading = (container) => {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center text-slate-400 px-8">
+                        <svg class="animate-spin h-8 w-8 text-emerald-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="text-sm">Building your custom drill plan...</p>
+                    </div>
+                `;
+            };
+
+            const renderErrorState = (container, message) => {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center px-8">
+                        <div class="bg-rose-950/40 border border-rose-900/50 text-rose-400 p-4 rounded-xl max-w-sm text-sm flex items-center gap-2">
+                            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <span>${message}</span>
+                        </div>
+                    </div>
+                `;
+            };
+
+            const buildResultCard = (title, iconSvg, colorClass, items) => {
+                const listItems = (items || []).map(item => `
+                    <li class="flex items-start gap-2 text-sm text-slate-300 leading-relaxed">
+                        <span class="w-1.5 h-1.5 rounded-full ${colorClass} mt-2 flex-shrink-0"></span>
+                        <span>${item}</span>
+                    </li>
+                `).join('');
+                return `
+                    <div class="glass-panel rounded-xl p-5 border border-slate-700/50">
+                        <h4 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                            ${iconSvg}
+                            ${title}
+                        </h4>
+                        <ul class="space-y-2">${listItems || '<li class="text-slate-500 text-sm">No items returned.</li>'}</ul>
+                    </div>
+                `;
+            };
+
+            const renderDrillResults = (data) => {
+                drillResultsBox.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${buildResultCard('Drills', '<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>', 'bg-emerald-400', data.drills)}
+                        ${buildResultCard('Gym Exercises', '<svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>', 'bg-indigo-400', data.gym_exercises)}
+                        ${buildResultCard('Pre-Match Meals', '<svg class="w-4 h-4 text-tennis" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path></svg>', 'bg-tennis', data.pre_match_meals)}
+                        ${buildResultCard('Post-Match Recovery Meals', '<svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path></svg>', 'bg-sky-400', data.post_match_meals)}
+                    </div>
+                `;
+            };
+
+            const generateDrillPlan = async () => {
+                generateDrillPlanBtn.disabled = true;
+                renderDrillLoading(drillResultsBox);
+                try {
+                    const response = await fetch('/api/training', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            focus_area: drillFocusArea.value,
+                            time_available: drillTimeAvailable.value.trim() || '30 mins a day',
+                            gym_access: drillGymAccess.value,
+                            player_level: drillPlayerLevel.value.trim() || 'High School Varsity / NTRP 3.5',
+                            weaknesses: currentProfile ? (currentProfile.weaknesses || '') : '',
+                            recent_injuries: currentProfile ? (currentProfile.recent_injuries || '') : '',
+                            favorite_serve: currentProfile ? (currentProfile.favorite_serve || '') : '',
+                            coach_notes: currentProfile ? (currentProfile.coach_notes || '') : ''
+                        })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || 'Drill plan generation fault.');
+                    renderDrillResults(data);
+                } catch (err) {
+                    renderErrorState(drillResultsBox, `Drill plan generation failed to sync. ${err.message}`);
+                } finally {
+                    generateDrillPlanBtn.disabled = false;
+                }
+            };
+
+            generateDrillPlanBtn.addEventListener('click', generateDrillPlan);
+
+            // --- Recovery Lab Logic ---
+            const recoveryInjury = document.getElementById('recoveryInjury');
+            const recoveryContext = document.getElementById('recoveryContext');
+            const recoveryPlayerLevel = document.getElementById('recoveryPlayerLevel');
+            const recoveryError = document.getElementById('recoveryError');
+            const generateRecoveryPlanBtn = document.getElementById('generateRecoveryPlanBtn');
+            const recoveryResultsBox = document.getElementById('recoveryResultsBox');
+            let recoveryInitialized = false;
+
+            const initRecoveryDefaults = () => {
+                if (recoveryInitialized) return;
+                recoveryInitialized = true;
+                if (currentProfile && currentProfile.play_style) {
+                    recoveryPlayerLevel.value = currentProfile.play_style;
+                }
+                if (currentProfile && currentProfile.recent_injuries) {
+                    recoveryContext.value = currentProfile.recent_injuries;
+                }
+            };
+
+            const renderRecoveryLoading = (container) => {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center text-slate-400 px-8">
+                        <svg class="animate-spin h-8 w-8 text-sky-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="text-sm">Mapping your recovery timeline...</p>
+                    </div>
+                `;
+            };
+
+            const renderRecoveryResults = (data) => {
+                const phases = Array.isArray(data.recovery_plan) ? data.recovery_plan : [];
+                const phaseCards = phases.map((phase) => `
+                    <div class="glass-panel rounded-xl p-5 border border-slate-700/50 relative pl-6">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-sky-400/60 rounded-l-xl"></div>
+                        <p class="text-xs uppercase tracking-wider text-sky-400 font-semibold mb-1">${phase.day || 'Phase'}</p>
+                        <h4 class="text-sm font-semibold text-white mb-3">${phase.focus || ''}</h4>
+                        <ul class="space-y-2">
+                            ${(phase.protocols || []).map(p => `
+                                <li class="flex items-start gap-2 text-sm text-slate-300 leading-relaxed">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-sky-400 mt-2 flex-shrink-0"></span>
+                                    <span>${p}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+
+                recoveryResultsBox.innerHTML = `
+                    <h3 class="text-xl font-bold text-white mb-4">${data.injury_name || 'Recovery Plan'}</h3>
+                    <div class="space-y-4">${phaseCards || '<p class="text-slate-500 text-sm">No recovery phases returned.</p>'}</div>
+                    <div class="mt-6 pt-4 border-t border-slate-700/50 text-xs text-slate-500 leading-relaxed">
+                        ${data.disclaimer || 'Informational therapeutic outline only. Always seek counsel from an athletic medical professional before returning to court.'}
+                    </div>
+                `;
+            };
+
+            const generateRecoveryPlan = async () => {
+                if (!recoveryInjury.value.trim()) {
+                    recoveryError.innerText = 'Please describe the injury or pain area first.';
+                    return;
+                }
+                recoveryError.innerText = '';
+                generateRecoveryPlanBtn.disabled = true;
+                renderRecoveryLoading(recoveryResultsBox);
+                try {
+                    const response = await fetch('/api/recovery', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            injury: recoveryInjury.value.trim(),
+                            context: recoveryContext.value.trim(),
+                            player_level: recoveryPlayerLevel.value.trim() || 'Ordinary / Recreational'
+                        })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || 'Recovery plan generation fault.');
+                    renderRecoveryResults(data);
+                } catch (err) {
+                    renderErrorState(recoveryResultsBox, `Recovery plan generation failed to sync. ${err.message}`);
+                } finally {
+                    generateRecoveryPlanBtn.disabled = false;
+                }
+            };
+
+            generateRecoveryPlanBtn.addEventListener('click', generateRecoveryPlan);
+
+            // --- Video Shot Analysis Logic ---
+            const videoFileInput = document.getElementById('videoFileInput');
+            const videoFileLabel = document.getElementById('videoFileLabel');
+            const videoPlayerLevel = document.getElementById('videoPlayerLevel');
+            const videoMatchContext = document.getElementById('videoMatchContext');
+            const videoError = document.getElementById('videoError');
+            const generateVideoAnalysisBtn = document.getElementById('generateVideoAnalysisBtn');
+            const videoResultsBox = document.getElementById('videoResultsBox');
+            let videoAnalysisInitialized = false;
+
+            const initVideoAnalysisDefaults = () => {
+                if (videoAnalysisInitialized) return;
+                videoAnalysisInitialized = true;
+                if (currentProfile && currentProfile.play_style) {
+                    videoPlayerLevel.value = currentProfile.play_style;
+                }
+            };
+
+            videoFileInput.addEventListener('change', () => {
+                const file = videoFileInput.files && videoFileInput.files[0];
+                videoFileLabel.innerHTML = file
+                    ? `Selected: <span class="text-violet-400">${file.name}</span>`
+                    : 'Click to choose a match video<br>(MP4, MOV, M4V, AVI, WEBM, MKV — up to 200MB)';
+            });
+
+            const renderVideoLoading = (container) => {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center text-slate-400 px-8">
+                        <svg class="animate-spin h-8 w-8 text-violet-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="text-sm">Sampling frames and scoring shots... this can take a minute for longer clips.</p>
+                    </div>
+                `;
+            };
+
+            const scoreColorClass = (score) => {
+                if (score === null || score === undefined) return 'text-slate-400 border-slate-700';
+                if (score >= 80) return 'text-emerald-400 border-emerald-400/40';
+                if (score >= 50) return 'text-amber-400 border-amber-400/40';
+                return 'text-rose-400 border-rose-400/40';
+            };
+
+            const renderVideoResults = (data) => {
+                const shots = Array.isArray(data.shots) ? data.shots : [];
+                const stats = data.stats || {};
+                const rankedShots = [...shots].sort((a, b) => {
+                    const scoreA = (a.score === null || a.score === undefined) ? -1 : a.score;
+                    const scoreB = (b.score === null || b.score === undefined) ? -1 : b.score;
+                    return scoreB - scoreA;
+                });
+
+                const shotRows = rankedShots.map((shot, idx) => `
+                    <div class="flex items-start gap-3 bg-slate-800/50 border border-slate-700 rounded-xl p-3">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-lg border ${scoreColorClass(shot.score)} flex items-center justify-center font-bold text-sm">
+                            ${shot.score !== null && shot.score !== undefined ? shot.score : '—'}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-sm font-medium text-slate-200">#${idx + 1} · ${shot.shot_type || 'Unclassified'}</span>
+                                <span class="text-xs text-slate-500 flex-shrink-0">t=${shot.timestamp_sec}s</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">${shot.feedback || ''}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                const statCard = (label, value, colorClass) => `
+                    <div class="glass-panel rounded-xl p-4 border border-slate-700/50 text-center">
+                        <p class="text-2xl font-extrabold ${colorClass || 'text-white'}">${value}</p>
+                        <p class="text-[10px] uppercase tracking-wider text-slate-500 mt-1">${label}</p>
+                    </div>
+                `;
+
+                videoResultsBox.innerHTML = `
+                    ${data.summary ? `<p class="text-sm text-slate-300 leading-relaxed mb-6">${data.summary}</p>` : ''}
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                        ${statCard('Shots Analyzed', stats.total_shots_analyzed ?? shots.length, 'text-white')}
+                        ${statCard('Average Score', stats.average_score ?? '—', 'text-violet-400')}
+                        ${statCard('Best Shot', stats.best_shot ? stats.best_shot.score : '—', 'text-emerald-400')}
+                        ${statCard('Toughest Shot', stats.worst_shot ? stats.worst_shot.score : '—', 'text-rose-400')}
+                    </div>
+
+                    ${data.focus_recommendation ? `
+                        <div class="bg-violet-400/5 border border-violet-400/20 rounded-xl px-4 py-3 mb-6">
+                            <p class="text-xs uppercase tracking-wider text-violet-400 font-semibold mb-1">Focus Recommendation</p>
+                            <p class="text-sm text-slate-200 leading-relaxed">${data.focus_recommendation}</p>
+                        </div>
+                    ` : ''}
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        ${buildResultCard('Strengths', '<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>', 'bg-emerald-400', data.strengths)}
+                        ${buildResultCard('Weaknesses', '<svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M4.93 4.93a10 10 0 1014.14 14.14A10 10 0 004.93 4.93z"></path></svg>', 'bg-rose-400', data.weaknesses)}
+                    </div>
+
+                    <h4 class="text-sm font-semibold text-white mb-3">Shot-by-Shot Ranking</h4>
+                    <div class="space-y-2">${shotRows || '<p class="text-slate-500 text-sm">No shots were returned.</p>'}</div>
+                `;
+            };
+
+            const generateVideoAnalysis = async () => {
+                const file = videoFileInput.files && videoFileInput.files[0];
+                if (!file) {
+                    videoError.innerText = 'Please choose a match video file first.';
+                    return;
+                }
+                videoError.innerText = '';
+                generateVideoAnalysisBtn.disabled = true;
+                renderVideoLoading(videoResultsBox);
+
+                try {
+                    const formData = new FormData();
+                    formData.append('video', file);
+                    formData.append('player_level', videoPlayerLevel.value.trim() || 'High School Varsity / NTRP 3.5');
+                    formData.append('match_context', videoMatchContext.value.trim());
+
+                    const response = await fetch('/api/video-analysis', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || 'Video analysis pipeline fault.');
+                    renderVideoResults(data);
+                } catch (err) {
+                    renderErrorState(videoResultsBox, `Video analysis failed to sync. ${err.message}`);
+                } finally {
+                    generateVideoAnalysisBtn.disabled = false;
+                }
+            };
+
+            generateVideoAnalysisBtn.addEventListener('click', generateVideoAnalysis);
 
             // --- Core AI Chatbot Logic ---
             const chatInput = document.getElementById('chatInput');
